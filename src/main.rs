@@ -16,7 +16,7 @@ fn for_each_line_in_fasta(fasta_filename: &str, mut callback: impl FnMut(String)
 
 fn process_fasta(fasta_filename: &str, prefix: &str, uppercase: bool) {
     for_each_line_in_fasta(fasta_filename, |mut l: String| {
-        if l.len() > 0 {
+        if !l.is_empty() {
             if l.chars().nth(0).unwrap() == '>' {
                 let basename = l.split('>').nth(1).unwrap().split(' ').nth(0).unwrap();
                 println!(">{}{}", prefix, basename);
