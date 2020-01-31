@@ -20,7 +20,7 @@ fn process_fasta(fasta_filename: &str, prefix: &str, uppercase: bool) {
         |mut l: String| {
             if l.len() > 0 {
                 if l.chars().nth(0).unwrap() == '>' {
-                    let basename = l.split(' ').nth(1).unwrap();
+                    let basename = l.split('>').nth(1).unwrap().split(' ').nth(0).unwrap();
                     println!(">{}{}", prefix, basename);
                 } else if uppercase {
                     l.make_ascii_uppercase();
