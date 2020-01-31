@@ -1,0 +1,14 @@
+[package]
+name = "fastix"
+version = "0.1.0"
+authors = ["Erik Garrison <erik.garrison@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+clap = "2.33.0"
+
+[dev-dependencies]
+assert_cmd = "0.12.0"
+predicates = "1.0.2"
