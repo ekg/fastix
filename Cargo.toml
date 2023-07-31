@@ -2,9 +2,13 @@
 name = "fastix"
 version = "0.1.0"
 authors = ["Erik Garrison <erik.garrison@gmail.com>"]
-edition = "2018"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+edition = "2021"
+description = "prefix renaming FASTA records"
+license = "MIT"
+repository = "https://github.com/ekg/fastix"
+readme = "README.md"
+keywords = ["bioinformatics", "FASTA"]
+categories = ["science"]
 
 [dependencies]
 clap = "2.33.0"
