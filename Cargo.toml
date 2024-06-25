@@ -11,7 +11,7 @@ keywords = ["bioinformatics", "FASTA"]
 categories = ["science"]
 
 [dependencies]
-clap = "2.33.0"
+clap = "4.5.7"
 
 [dev-dependencies]
 assert_cmd = "0.12.0"
