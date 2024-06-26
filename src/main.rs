@@ -4,13 +4,21 @@ use std::fs::File;
 use std::io::{self, prelude::*, BufReader};
 
 extern crate clap;
-use clap::{App, Arg};
+use clap::{Command, Arg};
 
 fn for_each_line_in_fasta(fasta_filename: &str, mut callback: impl FnMut(String)) {
-    let file = File::open(fasta_filename).unwrap();
-    let reader = BufReader::new(file);
-    for line in reader.lines() {
-        callback(line.unwrap());
+    if fasta_filename == "-" {
+        let stdin = io::stdin();
+        for line in stdin.lock().lines() {
+            callback(line.unwrap());
+        }
+    }
+    else {
+        let file = File::open(fasta_filename).unwrap();
+        let reader = BufReader::new(file);
+        for line in reader.lines() {
+            callback(line.unwrap());
+        }
     }
 }
 
@@ -31,29 +39,29 @@ fn process_fasta(fasta_filename: &str, prefix: &str, uppercase: bool) {
 }
 
 fn main() -> io::Result<()> {
-    let matches = App::new("fastix")
+    let matches = Command::new("fastix")
         .version("0.1.0")
         .author("Erik Garrison <erik.garrison@gmail.com>")
         .about("Trivial manipulations of FASTA files")
         .arg(
-            Arg::with_name("INPUT")
+            Arg::new("INPUT")
                 .required(true)
-                .takes_value(true)
+                .num_args(1)
                 .index(1)
                 .help("input FASTA file"),
         )
         .arg(
-            Arg::with_name("prefix")
-                .short("p")
+            Arg::new("prefix")
+                .short('p')
                 .long("prefix")
-                .takes_value(true)
+                .num_args(1)
                 .help("Prefix to add to each record in the file"),
         )
         .get_matches();
 
-    let filename = matches.value_of("INPUT").unwrap();
+    let filename = matches.get_one::<String>("INPUT").unwrap();
 
-    let prefix = matches.value_of("prefix").unwrap();
+    let prefix = matches.get_one::<String>("prefix").unwrap();
 
     process_fasta(filename, prefix, true);
 
